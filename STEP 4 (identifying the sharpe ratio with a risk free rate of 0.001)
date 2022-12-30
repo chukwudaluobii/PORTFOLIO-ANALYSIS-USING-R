@@ -1,0 +1,23 @@
+#step4
+#Arriving athe sharpe ratio
+riskfree <- 0.001
+Equity_sharpe <- (mean(joined_monthlyReturn$monthly.returns[time_index:(time_index-59)])- riskfree) / Equity01_sigma
+Equity022_sharpe <- (mean(joined_monthlyReturn$monthly.returns.1[time_index:(time_index-59)])- riskfree) / Equity02_sigma
+Fixed_income_sharpee <- (mean(joined_monthlyReturn$monthly.returns.2[time_index:(time_index-59)])- riskfree) / fixed_income_sigma
+Real_Asset_sharpee <- (mean(joined_monthlyReturn$monthly.returns.3[time_index:(time_index-59)])- riskfree) / Real_Asset_sigma
+Commodities_sharpee <- (mean(joined_monthlyReturn$monthly.returns.4[time_index:(time_index-59)])- riskfree) / Commodities_sigma
+benchmark_sharpee <- (mean(joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])- riskfree) / benchmark_sigma
+
+#then to find the sharpe ratio for the entire portfolio
+portfolio_sharpee <- (mean(joined_monthlyportfolioreturn$portfolio[time_index:(time_index-59)])- riskfree) / portfolio_sigma
+result_sharpe <- c(Equity_sharpe, Equity022_sharpe, Fixed_income_sharpee, Real_Asset_sharpee, Commodities_sharpee, benchmark_sharpee,
+                   portfolio_sharpee)
+
+#identifying the respective securities
+Equity_sharpe
+Equity022_sharpe
+Fixed_income_sharpee
+Real_Asset_sharpee
+Commodities_sharpee
+benchmark_sharpee
+
