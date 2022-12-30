@@ -1,0 +1,23 @@
+#step5
+#calculating market risk- tracking error(the selected securities divided by the benchmark)
+Equity_te<-sd(joined_monthlyReturn$monthly.returns[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+Equity02_te<-sd(joined_monthlyReturn$monthly.returns.1[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+Fixed_income_te<-sd(joined_monthlyReturn$monthly.returns.2[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+Real_Asset_te<-sd(joined_monthlyReturn$monthly.returns.3[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+Commodities_te<-sd(joined_monthlyReturn$monthly.returns.4[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+benchmark_te<-sd(joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+
+#then to find the tracking error for the entire portfolio
+portfolio_te<-sd(joined_monthlyportfolioreturn$portfolio[time_index:(time_index-59)]-joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+result_te <- c(Equity_te, Equity02_te, Fixed_income_te, Real_Asset_te, Commodities_te, benchmark_te,
+               portfolio_te)
+
+#identifying the respective securities
+Equity_te
+Equity02_te
+Fixed_income_te
+Real_Asset_te
+Commodities_te
+benchmark_te
+
+
