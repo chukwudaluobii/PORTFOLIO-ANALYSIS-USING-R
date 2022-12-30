@@ -1,0 +1,4 @@
+#step6
+#try looking at the correlation/covariance
+cor(joined_monthlyReturn[time_index:(time_index-59),], use='complete.obs')
+
