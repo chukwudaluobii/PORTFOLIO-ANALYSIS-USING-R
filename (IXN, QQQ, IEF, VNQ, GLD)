@@ -1,0 +1,18 @@
+STEP 1
+#using the yahoo finance API to downlaod the following data
+install.packages("quantmod")
+library(quantmod)
+
+#giving our Tickers a more proper generic name
+Equity01 <- getSymbols("IXN", auto.assign=FALSE)
+Equity02 <- getSymbols("QQQ", auto.assign=FALSE)
+fixed_income <- getSymbols("IEF", auto.assign=FALSE)
+Real_Asset <- getSymbols("VNQ", auto.assign=FALSE)
+Commodities <- getSymbols("GLD", auto.assign=FALSE)
+
+#now we join the five tables together
+joined_prices <- merge.xts(Equity01, Equity02, fixed_income, Real_Asset, Commodities)
+
+#we then select only adjusted prices using a sequence
+joined_adjusted_prices_only <- joined_prices[,seq(from=6, to=30, by=6)]
+
