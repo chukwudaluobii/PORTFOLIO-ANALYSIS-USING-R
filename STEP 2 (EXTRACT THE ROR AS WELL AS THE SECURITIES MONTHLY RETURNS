@@ -1,0 +1,42 @@
+#step2
+install.packages("dplyr")
+library(dplyr)
+
+joined_returns <- as.data.frame(joined_adjusted_prices_only) %>%
+  mutate(IXN_ROR = log(IXN.Adjusted/lag(IXN.Adjusted)))%>%
+  mutate(QQQ_ROR = log(QQQ.Adjusted/lag(QQQ.Adjusted)))%>%
+  mutate(IEF_ROR = log(IEF.Adjusted/lag(IEF.Adjusted)))%>%
+  mutate(VNQ_ROR = log(VNQ.Adjusted/lag(VNQ.Adjusted)))%>%
+  mutate(GLD_ROR = log(GLD.Adjusted/lag(GLD.Adjusted)))
+
+
+#getting the time window
+Equity01_returns <- monthlyReturn(getSymbols("IXN", auto.assign = FALSE))
+Equity02_returns <- monthlyReturn(getSymbols("QQQ", auto.assign = FALSE))
+fixed_income_returns <- monthlyReturn(getSymbols("IEF", auto.assign = FALSE))
+Real_Asset_returns <- monthlyReturn(getSymbols("VNQ", auto.assign = FALSE))
+Commodities_returns <- monthlyReturn(getSymbols("GLD", auto.assign = FALSE))
+
+#join the following monthly returns
+
+joined_monthlyReturn<- merge.xts(Equity01_returns, Equity02_returns, fixed_income_returns, Real_Asset_returns, Commodities_returns)
+
+
+#now to calculate the portfolio returns for all stocks, we need to identify the asset allocation
+Total <- 0.175+0.221+0.285+0.089+0.23
+IXN_alloc <- 0.175
+QQQ_alloc <- 0.221
+IEF_alloc <- 0.285
+VNQ_alloc <- 0.089
+GLD_alloc <- 0.23
+
+#join the required allocation to the monthly rteurns
+joined_monthlyportfolioreturn <- as.data.frame(joined_monthlyReturn) %>%
+  mutate(portfolio = IXN_alloc*monthly.returns+
+           QQQ_alloc*monthly.returns.1+
+           IEF_alloc*monthly.returns.2+
+           VNQ_alloc*monthly.returns.3+
+           GLD_alloc*monthly.returns.4)
+benchmark_returns <- monthlyReturn(getSymbols("AAPL", auto.assign = FALSE))
+joined_monthlyReturn<- merge.xts(Equity01_returns, Equity02_returns, fixed_income_returns, Real_Asset_returns, Commodities_returns, benchmark_returns)
+
