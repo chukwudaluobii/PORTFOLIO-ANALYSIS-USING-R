@@ -1,0 +1,25 @@
+#step3
+#now calculating the the sigma for 12months
+time_index <- nrow(joined_monthlyReturn)
+
+Equity01_sigma <- sd(joined_monthlyReturn$monthly.returns[time_index : (time_index-59)]) *sqrt(12)
+Equity02_sigma <- sd(joined_monthlyReturn$monthly.returns.1[time_index : (time_index-59)]) *sqrt(12)
+fixed_income_sigma <- sd(joined_monthlyReturn$monthly.returns.2[time_index : (time_index-59)]) *sqrt(12)
+Real_Asset_sigma <- sd(joined_monthlyReturn$monthly.returns.3[time_index : (time_index-59)]) *sqrt(12)
+Commodities_sigma <- sd(joined_monthlyReturn$monthly.returns.4[time_index : (time_index-59)]) *sqrt(12)
+benchmark_sigma <- sd(joined_monthlyReturn$monthly.returns.5[time_index:(time_index-59)])*sqrt(12)
+
+#then for the portfolio
+portfolio_sigma <- sd(joined_monthlyportfolioreturn$portfolio[time_index :(time_index-59)])*sqrt(12)
+Sigma_output <- c(Equity01_sigma,Equity02_sigma, fixed_income_sigma, Real_Asset_sigma, Commodities_sigma,benchmark_sigma, portfolio_sigma )
+Sigma_output <- as.data.frame(Sigma_output)
+
+
+#identifying the respective securities 
+Equity01_sigma
+Equity02_sigma
+fixed_income_sigma
+Commodities_sigma
+benchmark_sigma
+portfolio_sigma
+
