@@ -1,0 +1,26 @@
+#designing quasi CAPM models
+
+time_index <- nrow(joined_monthlyReturn)
+
+last_12_months <- joined_monthlyReturn[time_index:(time_index-11),]
+# designing the CAPM model for GLD
+
+IXN_reg <- lm(monthly.returns~monthly.returns.4 , data=last_12_months)
+summary(IXN_reg)
+
+QQQ_reg <- lm(monthly.returns.1~monthly.returns.4 , data=last_12_months)
+summary(QQQ_reg)
+
+VNQ_reg <- lm(monthly.returns.3~monthly.returns.4 , data=last_12_months)
+summary(VNQ_reg)
+
+#random sampling out of the large data frame
+#testing our model
+
+sample_indx <- sample(1:nrow(joined_monthlyReturn), size=5)
+
+sample_data <- joined_monthlyReturn[sample_indx,]
+
+predict(QQQ_reg, sample_data)
+
+predict(IXN_reg, sample_data)
