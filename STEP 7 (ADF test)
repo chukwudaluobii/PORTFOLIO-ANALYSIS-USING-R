@@ -1,0 +1,21 @@
+install.packages("plotly")
+library(plotly)
+install.packages("ggplot2")
+library(ggplot2)
+#ggplotly(compare_chart)
+compare_ror<-ggplot(data=joined_monthlyportfolioreturn)+
+  geom_line(aes(x=index(joined_monthlyportfolioreturn), y=monthly.returns),color="blue")+
+  geom_line(aes(x=index(joined_monthlyportfolioreturn), y=monthly.returns.1),color="darkgrey")+
+  geom_line(aes(x=index(joined_monthlyportfolioreturn), y=monthly.returns.2),color="darkorange1")+
+  geom_line(aes(x=index(joined_monthlyportfolioreturn), y=monthly.returns.3),color="purple")+
+  geom_line(aes(x=index(joined_monthlyportfolioreturn), y=monthly.returns.4),color="cyan")
+ggplotly(compare_ror)
+
+install.packages("tseries")
+library(tseries)
+adf.test(joined_monthlyportfolioreturn$monthly.returns) 
+adf.test(joined_monthlyportfolioreturn$monthly.returns.1)
+adf.test(joined_monthlyportfolioreturn$monthly.returns.2)
+adf.test(joined_monthlyportfolioreturn$monthly.returns.3)
+adf.test(joined_monthlyportfolioreturn$monthly.returns.4)
+
